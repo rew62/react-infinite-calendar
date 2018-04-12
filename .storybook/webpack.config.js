@@ -1,13 +1,12 @@
+const path = require("path");
+
 module.exports = {
   module: {
-    loaders: [
+    rules: [
       {
-        test: /(\.scss)$/,
-        loaders: [
-          'style',
-          'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]',
-          'sass?sourceMap'
-        ]
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]", "sass-loader?sourceMap"],
+        include: path.resolve(__dirname, "../")
       }
     ]
   }
