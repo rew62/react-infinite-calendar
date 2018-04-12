@@ -15,6 +15,7 @@ import Day from '../Day';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 import startOfDay from 'date-fns/start_of_day';
+import addWeeks from 'date-fns/add_weeks';
 
 const styles = {
   container: require('./Container.scss'),
@@ -180,6 +181,10 @@ export default class Calendar extends Component {
   getCurrentOffset = () => {
     return this.scrollTop;
   }
+  getCurrentDate = () => {
+    const {min, rowHeight} = this.props
+    return addWeeks(min, Math.ceil(this.scrollTop / rowHeight)) 
+  };
   getDateOffset = (date) => {
     return this._MonthList && this._MonthList.getDateOffset(date);
   };
@@ -232,7 +237,7 @@ export default class Calendar extends Component {
       this.updateTodayHelperPosition(0);
     }
 
-    onScrollEnd(this.scrollTop);
+    onScrollEnd(this.scrollTop, this.getCurrentDate());
   }, 150);
   updateTodayHelperPosition = (scrollSpeed) => {
     const today = this.today;
